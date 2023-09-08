@@ -20,7 +20,7 @@ type Claims struct {
 }
 
 // 根据用户的用户名产生token
-func GenerateToken(phone, pwd, secretKey string) (string, error) {
+func GenerateToken(phone, pwd string) (string, error) {
 	claims := Claims{
 		phone,
 		pwd,
@@ -34,14 +34,14 @@ func GenerateToken(phone, pwd, secretKey string) (string, error) {
 	}
 	// 使用HS256签名算法
 	t := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-	s, err := t.SignedString([]byte(secretKey))
+	s, err := t.SignedString([]byte(jwtSecret))
 
 	return s, err
 }
 
-func ParseToken(tokenstring, secretKey string) (*Claims, error) {
+func ParseToken(tokenstring string) (*Claims, error) {
 	t, err := jwt.ParseWithClaims(tokenstring, &Claims{}, func(token *jwt.Token) (interface{}, error) {
-		return []byte(secretKey), nil
+		return []byte(jwtSecret), nil
 	})
 
 	if claims, ok := t.Claims.(*Claims); ok && t.Valid {
