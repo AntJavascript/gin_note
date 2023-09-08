@@ -1,7 +1,7 @@
 package router
 
 import (
-	"gin_note/controller"
+	"gin_note/controllers"
 	"gin_note/middleware"
 	"github.com/gin-gonic/gin"
 )
@@ -17,11 +17,11 @@ func init() {
   /* 收支记录 */
 	user := router.Group("record")
 	{
-		user.GET("/list", controller.Record.List)
-		user.GET("/detail/:id", controller.Record.Detail)
-		user.POST("/add", controller.Record.Add)
-		user.POST("/update", controller.Record.Update)
-		user.POST("/delete/:id", controller.Record.Delete)
+		user.GET("/list", controllers.Record.List)
+		user.GET("/detail/:id", controllers.Record.Detail)
+		user.POST("/add", controllers.Record.Add)
+		user.POST("/update", controllers.Record.Update)
+		user.POST("/delete/:id", controllers.Record.Delete)
 	}
   
   // 启动
