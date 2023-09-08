@@ -6,11 +6,20 @@ import (
 	"gorm.io/gorm"
 )
 
+// 数据库配置
+const (
+	host = 127.0.0.1
+	port = 3306
+	username = root
+	pwd = shi465608
+	database = note_app
+)
+
 var DB *gorm.DB
 
 func ConDB() {
-	dsn := "root:shi465608@tcp(127.0.0.1:3306)/note_app?charset=utf8mb4&parseTime=True&loc=Local"
-	DB, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
+	conn := username + ":" + pwd + "@tcp(" + host + ":" + port + ")/" + database + "?charset=utf8mb4&parseTime=True&loc=Local"
+	DB, err := gorm.Open(mysql.Open(conn), &gorm.Config{})
 	if err != nil {
 		fmt.Println("数据库连接失败", err)
 	} else {
