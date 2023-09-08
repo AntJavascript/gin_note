@@ -18,7 +18,7 @@ func init() {
 	user := router.Group("record")
 	{
 		user.GET("/list", controllers.Record.List)
-		// user.GET("/detail/:id", controllers.Record.Detail)
+		user.GET("/detail/:id", controllers.Record.Detail)
 		// user.POST("/add", controllers.Record.Add)
 		// user.POST("/update", controllers.Record.Update)
 		// user.POST("/delete/:id", controllers.Record.Delete)
