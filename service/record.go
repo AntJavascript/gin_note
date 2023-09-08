@@ -1,19 +1,19 @@
 package service
 import (
-	"example.com/m/v2/models"
+	"example.com/m/v2/dto"
 )
 
 var Record = new(recordService)
 
 type recordService struct{}
 
-func(c *recordService) GetList(req *models.Record) ([]models.Record, int, error) {
+func(c *recordService) GetList(req *dto.Record) ([]dto.Record, int, error) {
 	// 数据处理
-	var result []models.Record
+	var result []dto.Record
 	// 总数
 	var count int = 10
 	for i := 0; i <= count; i++ {
-		item := models.Record{
+		item := dto.Record{
 			Id: i,
 			Type: "income",
 		}
