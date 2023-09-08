@@ -10,7 +10,7 @@ func init() {
   	// 初始化
 	router := gin.Default()
   	// 登录验证中间件
-	router.Use(middleware.CheckLogin())
+	// router.Use(middleware.CheckLogin())
   	// 设置静态资源路由
 	router.Static("/static", "../static/img")
 
