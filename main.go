@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-
+	_ "gin_note/router"
 	"github.com/gin-gonic/gin"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
