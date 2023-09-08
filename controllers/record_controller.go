@@ -4,10 +4,13 @@ import (
 	"gin_note/models"
 	"github.com/gin-gonic/gin"
 )
+var Record = new(recordCtrl)
 
-func (c *models.Record) List(ctx *gin.Context) {
+type recordCtrl struct{}
+
+func (c *recordCtrl) List(ctx *gin.Context) {
 	// 参数
-	var req *dto.UserPageReq
+	var req *models.Record
 	if err := ctx.ShouldBind(&req); err != nil {
 		ctx.JSON(http.StatusOK, common.JsonResult{
 			Code: -1,
