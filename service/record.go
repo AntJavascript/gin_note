@@ -1,6 +1,7 @@
 package service
 import (
 	"example.com/m/v2/dto"
+	"example.com/m/v2/models"
 )
 
 var Record = new(recordService)
@@ -22,4 +23,13 @@ func(c *recordService) GetList(req *dto.Record) ([]dto.Record, int, error) {
 	}
 
 	return result, count, nil
+}
+
+func(c *recordService) Detail(req *dto.Record, id int) (dto.Record, error) {
+	// 数据处理
+	detail := dto.Record{
+		Id: id,
+	}
+	models.DB.Find(&detail)
+	return detail, nil
 }
