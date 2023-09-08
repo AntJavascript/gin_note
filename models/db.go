@@ -17,3 +17,7 @@ func ConDB() {
 		fmt.Println("数据库连接成功", DB)
 	}
 }
+
+func CloseDB() {
+	DB.Close()
+}
