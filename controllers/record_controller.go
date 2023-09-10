@@ -1,13 +1,16 @@
 package controllers
 
 import (
+	"fmt"
+	"net/http"
 	"strconv"
-	"example.com/m/v2/service"
+
 	"example.com/m/v2/dto"
+	"example.com/m/v2/service"
 	"example.com/m/v2/tools"
 	"github.com/gin-gonic/gin"
-	"net/http"
 )
+
 var Record = new(recordCtrl)
 
 type recordCtrl struct{}
@@ -15,8 +18,6 @@ type recordCtrl struct{}
 func (c *recordCtrl) List(ctx *gin.Context) {
 
 	res := make(map[string]interface{})
-
-	defer ctx.JSON(http.StatusOK, res)
 
 	var req *dto.Record
 
@@ -29,7 +30,7 @@ func (c *recordCtrl) List(ctx *gin.Context) {
 	token, err := tools.GenerateToken("15817351609", "shi@465608")
 	res["count"] = count
 	res["token"] = token
-
+	ctx.JSON(http.StatusOK, res)
 }
 
 func (c *recordCtrl) Detail(ctx *gin.Context) {
@@ -37,10 +38,8 @@ func (c *recordCtrl) Detail(ctx *gin.Context) {
 	postId := ctx.Param("id")
 	id, _ := strconv.Atoi(postId)
 	var req *dto.Record
-	
+	fmt.Println(postId, id)
 	res := make(map[string]interface{})
-
-	defer ctx.JSON(http.StatusOK, res)
 
 	if postId != "" {
 		detail, err := service.Record.Detail(req, id)
@@ -50,4 +49,5 @@ func (c *recordCtrl) Detail(ctx *gin.Context) {
 			res = tools.JsonReturn(detail, "查询成功", 200)
 		}
 	}
+	ctx.JSON(http.StatusOK, res)
 }
