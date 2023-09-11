@@ -33,7 +33,7 @@ func (c *recordCtrl) List(ctx *gin.Context) {
 	var req *dto.Record
 	list, count, err := service.Record.GetList(req, date)
 	if err != nil {
-		res = tools.JsonReturn(list, "查询失败", 400)
+		res = tools.JsonReturn("", "查询失败", 400)
 	} else {
 		res = tools.JsonReturn(list, "查询成功", 200)
 		token, err := tools.GenerateToken("15817351609", "shi@465608")
