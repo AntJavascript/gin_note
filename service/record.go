@@ -36,3 +36,11 @@ func (c *recordService) Add(params *dto.Record) error {
 	}
 	return nil
 }
+
+func (c *recordService) Update(params *dto.Record) error {
+	
+	if err := models.DB.Save(&params).Error; err != nil {
+		return err
+	}
+	return nil
+}
