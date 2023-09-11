@@ -101,3 +101,24 @@ func (c *recordCtrl) Update(ctx *gin.Context) {
 	
 	ctx.JSON(http.StatusOK, res)
 }
+
+// 删除单条记录
+func (c *recordCtrl) Delete(ctx *gin.Context) {
+
+	res := make(map[string]interface{})
+
+	postId := ctx.Param("id")
+	id, _ := strconv.Atoi(postId)
+
+	if postId != "" {
+		err := service.Record.Delete(id)
+
+		if err != nil {
+			res = tools.JsonReturn(err, "删除失败", 400)
+		} else {
+			res = tools.JsonReturn("", "删除成功", 200)
+		}
+	}
+	
+	ctx.JSON(http.StatusOK, res)
+}
