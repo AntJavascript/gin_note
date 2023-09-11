@@ -18,11 +18,20 @@ type recordCtrl struct{}
 func (c *recordCtrl) List(ctx *gin.Context) {
 
 	res := make(map[string]interface{})
-
+	
+	date := ctx.Query("date") // 请求日期
+	if date == "" {
+		now := time.Now()
+		year := now.Format("2006")
+		month := now.Format("01")
+		day := now.Format("02")
+		date = fmt.Sprintf("%s-%s-%s", year, month, day)
+	}
+	fmt.Println(date)
 	var req *dto.Record
 
 	// 调用获取列表方法
-	list, count, err := service.Record.GetList(req)
+	list, count, err := service.Record.GetList(req, date)
 	if err != nil {
 		return
 	}
