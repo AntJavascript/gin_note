@@ -1,8 +1,6 @@
 package service
 
 import (
-	"fmt"
-
 	"example.com/m/v2/dto"
 	"example.com/m/v2/models"
 )
@@ -23,14 +21,12 @@ func (c *recordService) Detail(req *dto.Record, id int) (dto.Record, error) {
 	detail := dto.Record{
 		Id: id,
 	}
-	fmt.Println("models.DBmodels.DBmodels.DBmodels.DB", models.DB)
-	fmt.Println("models.DBmodels.DBmodels.DBmodels.DB", models.DB)
 	models.DB.Find(&detail)
 	return detail, nil
 }
 
 func (c *recordService) Add(params *dto.Record) error {
-	
+
 	if err := models.DB.Create(&params).Error; err != nil {
 		return err
 	}
@@ -38,7 +34,7 @@ func (c *recordService) Add(params *dto.Record) error {
 }
 
 func (c *recordService) Update(params *dto.Record) error {
-	
+
 	if err := models.DB.Save(&params).Error; err != nil {
 		return err
 	}

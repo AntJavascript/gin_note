@@ -2,6 +2,7 @@ package models
 
 import (
 	"fmt"
+
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
@@ -20,10 +21,12 @@ var DB *gorm.DB
 func init() {
 	fmt.Println("初始化db", DB)
 	conn := username + ":" + pwd + "@tcp(" + host + ":" + port + ")/" + database + "?charset=utf8mb4&parseTime=True&loc=Local"
-	DB, err := gorm.Open(mysql.Open(conn), &gorm.Config{})
+	db, err := gorm.Open(mysql.Open(conn), &gorm.Config{})
 	if err != nil {
 		fmt.Println("数据库连接失败", err)
 	} else {
 		fmt.Println("数据库连接成功", DB)
+		DB = db
 	}
+
 }

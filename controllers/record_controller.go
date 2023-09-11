@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 	"strconv"
+	"time"
 
 	"example.com/m/v2/dto"
 	"example.com/m/v2/service"
@@ -18,7 +19,7 @@ type recordCtrl struct{}
 // 根据日期查询列表
 func (c *recordCtrl) List(ctx *gin.Context) {
 	res := make(map[string]interface{})
-	
+
 	date := ctx.Query("date") // 请求日期
 	if date == "" {
 		now := time.Now()
@@ -36,11 +37,11 @@ func (c *recordCtrl) List(ctx *gin.Context) {
 		res = tools.JsonReturn("", "查询失败", 400)
 	} else {
 		res = tools.JsonReturn(list, "查询成功", 200)
-		token, err := tools.GenerateToken("15817351609", "shi@465608")
+		token, _ := tools.GenerateToken("15817351609", "shi@465608")
 		res["count"] = count
 		res["token"] = token
 	}
-	
+
 	ctx.JSON(http.StatusOK, res)
 }
 
@@ -64,21 +65,22 @@ func (c *recordCtrl) Detail(ctx *gin.Context) {
 
 // 添加记录
 func (c *recordCtrl) Add(ctx *gin.Context) {
-	
+
 	res := make(map[string]interface{})
 
 	params := dto.Record{}
-	if ctx.ShouldBind(&params) != nil {
+	if ctx.BindJSON(&params) != nil {
 		res = tools.JsonReturn("", "参数错误", 400)
 	} else {
+		params.Created = time.Now() // 默认当前时间
 		err := service.Record.Add(&params)
 		if err != nil {
-			res = tools.JsonReturn("", "失败", 400)
+			res = tools.JsonReturn(err, "失败", 400)
 		} else {
 			res = tools.JsonReturn("", "成功", 200)
 		}
 	}
-	
+
 	ctx.JSON(http.StatusOK, res)
 }
 
@@ -98,7 +100,7 @@ func (c *recordCtrl) Update(ctx *gin.Context) {
 			res = tools.JsonReturn("", "成功", 200)
 		}
 	}
-	
+
 	ctx.JSON(http.StatusOK, res)
 }
 
@@ -119,6 +121,6 @@ func (c *recordCtrl) Delete(ctx *gin.Context) {
 			res = tools.JsonReturn("", "删除成功", 200)
 		}
 	}
-	
+
 	ctx.JSON(http.StatusOK, res)
 }
