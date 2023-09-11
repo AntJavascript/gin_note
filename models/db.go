@@ -19,7 +19,7 @@ const (
 
 var DB *gorm.DB
 
-func ConDB() {
+func init() {
 	fmt.Println("初始化db", DB)
 	conn := username + ":" + pwd + "@tcp(" + host + ":" + port + ")/" + database + "?charset=utf8mb4&parseTime=True&loc=Local"
 	DB, err := gorm.Open(mysql.Open(conn), &gorm.Config{})
@@ -27,10 +27,5 @@ func ConDB() {
 		fmt.Println("数据库连接失败", err)
 	} else {
 		fmt.Println("数据库连接成功", DB)
-		detail := dto.Record{
-			Id: 1,
-		}
-		DB.Find(&detail)
-		fmt.Println("数据结果", detail)
 	}
 }
