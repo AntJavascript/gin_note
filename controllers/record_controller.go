@@ -15,6 +15,7 @@ var Record = new(recordCtrl)
 
 type recordCtrl struct{}
 
+// 根据日期查询列表
 func (c *recordCtrl) List(ctx *gin.Context) {
 
 	res := make(map[string]interface{})
@@ -42,6 +43,7 @@ func (c *recordCtrl) List(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, res)
 }
 
+// 查询单条记录详情
 func (c *recordCtrl) Detail(ctx *gin.Context) {
 
 	postId := ctx.Param("id")
