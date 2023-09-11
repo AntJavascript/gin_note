@@ -44,3 +44,13 @@ func (c *recordService) Update(params *dto.Record) error {
 	}
 	return nil
 }
+
+func (c *recordService) Delete(id int) error {
+	detail := dto.Record{
+		Id: id,
+	}
+	if err := models.DB.Delete(&detail).Error; err != nil {
+		return err
+	}
+	return nil
+}
