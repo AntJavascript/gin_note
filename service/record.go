@@ -28,3 +28,11 @@ func (c *recordService) Detail(req *dto.Record, id int) (dto.Record, error) {
 	models.DB.Find(&detail)
 	return detail, nil
 }
+
+func (c *recordService) Add(params *dto.Record) error {
+	
+	if err := models.DB.Create(&params).Error; err != nil {
+		return err
+	}
+	return nil
+}
