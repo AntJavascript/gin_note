@@ -21,7 +21,7 @@ func init() {
 		user.GET("/detail/:id", controllers.Record.Detail)
 		user.POST("/add", controllers.Record.Add)
 		user.POST("/update/:id", controllers.Record.Update)
-		// user.POST("/delete/:id", controllers.Record.Delete)
+		user.POST("/delete/:id", controllers.Record.Delete)
 	}
 	// 启动
 	router.Run(":9099")
