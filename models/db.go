@@ -2,8 +2,6 @@ package models
 
 import (
 	"fmt"
-
-	"example.com/m/v2/dto"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
