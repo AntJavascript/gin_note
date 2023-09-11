@@ -2,8 +2,6 @@ package router
 
 import (
 	"example.com/m/v2/controllers"
-	"example.com/m/v2/models"
-
 	// "example.com/m/v2/middleware"
 	"github.com/gin-gonic/gin"
 )
@@ -25,7 +23,6 @@ func init() {
 		// user.POST("/update", controllers.Record.Update)
 		// user.POST("/delete/:id", controllers.Record.Delete)
 	}
-	models.ConDB()
 	// 启动
 	router.Run(":9099")
 }
