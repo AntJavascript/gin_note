@@ -81,3 +81,23 @@ func (c *recordCtrl) Add(ctx *gin.Context) {
 	
 	ctx.JSON(http.StatusOK, res)
 }
+
+// 更新单条记录
+func (c *recordCtrl) Update(ctx *gin.Context) {
+
+	res := make(map[string]interface{})
+
+	params := dto.Record{}
+	if ctx.ShouldBind(&params) != nil {
+		res = tools.JsonReturn("", "参数错误", 400)
+	} else {
+		err := service.Record.Update(&params)
+		if err != nil {
+			res = tools.JsonReturn("", "失败", 400)
+		} else {
+			res = tools.JsonReturn("", "成功", 200)
+		}
+	}
+	
+	ctx.JSON(http.StatusOK, res)
+}
