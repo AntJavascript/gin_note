@@ -15,19 +15,19 @@ func init() {
 	router.Static("/static", "../static/img")
 
 	/* 收支记录 */
-	user := router.Group("record")
+	record := router.Group("record")
 	{
-		user.GET("/list", controllers.Record.List)
-		user.GET("/detail/:id", controllers.Record.Detail)
-		user.POST("/add", controllers.Record.Add)
-		user.POST("/update", controllers.Record.Update)
-		user.POST("/delete/:id", controllers.Record.Delete)
+		record.GET("/list", controllers.Record.List)
+		record.GET("/detail/:id", controllers.Record.Detail)
+		record.POST("/add", controllers.Record.Add)
+		record.POST("/update", controllers.Record.Update)
+		record.POST("/delete/:id", controllers.Record.Delete)
 	}
 	/* 登录相关 */
 	user := router.Group("user")
 	{
-		user.GET("/login", controllers.User.Login)
-		user.GET("/register", controllers.User.Register)
+		user.POST("/login", controllers.User.Login)
+		user.POST("/register", controllers.User.Register)
 	}
 	// 启动
 	router.Run(":9099")
