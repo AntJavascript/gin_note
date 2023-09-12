@@ -90,7 +90,7 @@ func (c *recordCtrl) Update(ctx *gin.Context) {
 	res := make(map[string]interface{})
 
 	params := dto.Record{}
-	if ctx.ShouldBind(&params) != nil {
+	if ctx.BindJSON(&params) != nil {
 		res = tools.JsonReturn("", "参数错误", 400)
 	} else {
 		err := service.Record.Update(&params)
