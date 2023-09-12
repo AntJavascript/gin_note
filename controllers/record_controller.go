@@ -24,8 +24,8 @@ func (c *recordCtrl) List(ctx *gin.Context) {
 	if date == "" {
 		now := time.Now()
 		year := now.Format("2006")
-		month := now.Format("01")
-		day := now.Format("02")
+		month := now.Format("1")
+		day := now.Format("2")
 		date = fmt.Sprintf("%s-%s-%s", year, month, day)
 	}
 	fmt.Println(date)
