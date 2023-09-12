@@ -2,11 +2,12 @@ package models
 
 import (
 	"time"
+	"gorm.io/gorm"
 )
 
 // 收支记录字段
 type Record struct {
-	Id         int       `gorm:"primaryKey"` // id
+	gorm.Model
 	Type       string    // income(收入)、expend(支出)
 	RecordDate string    // 日期
 	Amount     float64   // 金额
