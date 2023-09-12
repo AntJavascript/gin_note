@@ -23,6 +23,12 @@ func init() {
 		user.POST("/update", controllers.Record.Update)
 		user.POST("/delete/:id", controllers.Record.Delete)
 	}
+	/* 登录相关 */
+	user := router.Group("user")
+	{
+		user.GET("/login", controllers.User.Login)
+		user.GET("/register", controllers.User.Register)
+	}
 	// 启动
 	router.Run(":9099")
 }
