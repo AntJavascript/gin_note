@@ -9,15 +9,15 @@ var Record = new(recordService)
 
 type recordService struct{}
 
+// 根据日期获取列表
 func (c *recordService) GetList(req *dto.Record, date string) ([]dto.Record, int, error) {
-	// 数据处理
 	var result []dto.Record
 	models.DB.Where("created = ?", date).Find(&result)
 	return result, len(result), nil
 }
 
+// 根据id获取详情
 func (c *recordService) Detail(req *dto.Record, id int) (dto.Record, error) {
-	// 数据处理
 	detail := dto.Record{
 		Id: id,
 	}
@@ -25,6 +25,7 @@ func (c *recordService) Detail(req *dto.Record, id int) (dto.Record, error) {
 	return detail, nil
 }
 
+// 添加数据
 func (c *recordService) Add(params *dto.Record) error {
 
 	if err := models.DB.Create(&params).Error; err != nil {
@@ -33,6 +34,7 @@ func (c *recordService) Add(params *dto.Record) error {
 	return nil
 }
 
+// 更新数据
 func (c *recordService) Update(params *dto.Record) error {
 
 	if err := models.DB.Save(&params).Error; err != nil {
@@ -41,6 +43,7 @@ func (c *recordService) Update(params *dto.Record) error {
 	return nil
 }
 
+// 根据id删除数据
 func (c *recordService) Delete(id int) error {
 	detail := dto.Record{
 		Id: id,
