@@ -20,7 +20,7 @@ func init() {
 		user.GET("/list", controllers.Record.List)
 		user.GET("/detail/:id", controllers.Record.Detail)
 		user.POST("/add", controllers.Record.Add)
-		user.POST("/update/:id", controllers.Record.Update)
+		user.POST("/update", controllers.Record.Update)
 		user.POST("/delete/:id", controllers.Record.Delete)
 	}
 	// 启动
