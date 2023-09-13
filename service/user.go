@@ -10,9 +10,10 @@ var User = new(userService)
 
 type userService struct{}
 
-func (c *userService) Login(params *dto.User) (string, error) {
-	token, err := tools.GenerateToken(params.Phone, 2)
-	return token, err
+func (c *userService) Login(params *dto.User) (string, string, error) {
+	access_token, err := tools.GenerateToken(params.Phone, params.Password, 2) // 2小时过期
+	refresh_token, err := tools.GenerateToken(params.Phone, params.Password, 168) // 7天过期
+	return access_token, refresh_token, err
 }
 
 // 查询用户是否存在
