@@ -11,7 +11,7 @@ var User = new(userService)
 type userService struct{}
 
 func (c *userService) Login(params *dto.User) (string, error) {
-	token, err := tools.GenerateToken(params.Phone, params.Password, 2)
+	token, err := tools.GenerateToken(params.Phone, 2)
 	return token, err
 }
 
