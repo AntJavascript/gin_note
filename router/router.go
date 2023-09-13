@@ -29,6 +29,12 @@ func init() {
 		user.POST("/login", controllers.User.Login)
 		user.POST("/register", controllers.User.Register)
 	}
+	/* jwt相关 */
+	jwt := router.Group("jwt")
+	{
+		jwt.POST("/generateToken", controllers.JwtStruct.Generate)
+		jwt.POST("/parseToken", controllers.JwtStruct.Parse)
+	}
 	// 启动
 	router.Run(":9099")
 }
