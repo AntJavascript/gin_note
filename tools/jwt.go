@@ -20,14 +20,14 @@ type Claims struct {
 }
 
 // 根据用户的用户名产生token
-func GenerateToken(phone, pwd string) (string, error) {
+func GenerateToken(phone, pwd string, exp int) (string, error) {
 	claims := Claims{
 		phone,
 		pwd,
 		jwt.RegisteredClaims{
 			Audience:  jwt.ClaimStrings{"note_app"},
 			Subject:   "note_go",
-			ExpiresAt: jwt.NewNumericDate(time.Now().Add(24 * time.Hour)), // 过期时间24小时
+			ExpiresAt: jwt.NewNumericDate(time.Now().Add(time.Duration(exp) * time.Hour)), // 过期时间24小时
 			IssuedAt:  jwt.NewNumericDate(time.Now()),                     // 签发时间
 			NotBefore: jwt.NewNumericDate(time.Now()),                     // 生效时间
 		},
