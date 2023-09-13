@@ -42,7 +42,7 @@ func (c *userCtrl) Login(ctx *gin.Context) {
 		return
 	}
 
-	token, err := service.User.Login(&params)
+	access_token, refresh_token, err := service.User.Login(&params)
 	if err != nil {
 		res = tools.JsonReturn("", "登录失败", 400)
 		ctx.JSON(http.StatusOK, res)
@@ -50,7 +50,8 @@ func (c *userCtrl) Login(ctx *gin.Context) {
 	}
 
 	res = tools.JsonReturn("", "登录成功", 200)
-	res["token"] = token
+	res["access_token"] = access_token
+	res["refresh_token"] = refresh_token
 	ctx.JSON(http.StatusOK, res)
 }
 
