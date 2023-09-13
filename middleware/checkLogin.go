@@ -13,19 +13,32 @@ func CheckLogin() gin.HandlerFunc {
 		// 放行设置
 		urlItem := []string{"/register", "/login"}
 		if !tools.InStringArray(ctx.Request.RequestURI, urlItem) {
+
 			// 从请求头中获取Token
-			token := ctx.GetHeader("Authorization");
-			if len(token) == 0 {
+			access_token := ctx.GetHeader("access_token");
+			refresh_token := ctx.GetHeader("refresh_token");
+			if len(access_token) == 0 || len(refresh_token) == 0 {
 				ctx.JSON(http.StatusOK, tools.JsonReturn("", "鉴权失败", 401))
 				ctx.Abort()
 				return
 			}
-			_, err := tools.ParseToken(token)
-			if err != nil {
-				ctx.JSON(http.StatusOK, tools.JsonReturn("", "Token已过期", 401))
+
+			// 验证access_token
+			_, err := tools.ParseToken(access_token)
+			// 验证refresh_token
+			_, refresh_err := tools.ParseToken(refresh_token)
+
+			// 已过期, 重新生成token
+			if err != nil && refresh_err == nil {
+				new_access_token, new_refresh_token, _ := tools.RefreshToken(access_token, refresh_token)
+				ctx.Writer.Header().Set("access_token", new_access_token)
+				ctx.Writer.Header().Set("refresh_token", new_refresh_token)
+			} else {
+				ctx.JSON(http.StatusOK, tools.JsonReturn("", "Token已过期, 请重新登录", 401))
 				ctx.Abort()
 				return
 			}
+
 		}
 		// 前置中间件
 		ctx.Next()
