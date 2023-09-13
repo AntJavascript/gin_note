@@ -11,7 +11,7 @@ func CheckLogin() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		fmt.Println("登录验证中间件")
 		// 放行设置
-		urlItem := []string{"/register", "/login"}
+		urlItem := []string{"/user/register", "/user/login"}
 		if !tools.InStringArray(ctx.Request.RequestURI, urlItem) {
 
 			// 从请求头中获取Token
