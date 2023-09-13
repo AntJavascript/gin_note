@@ -24,9 +24,7 @@ func init() {
 	db, err := gorm.Open(mysql.Open(conn), &gorm.Config{})
 	if err != nil {
 		fmt.Println("数据库连接失败", err)
-	} else {
-		fmt.Println("数据库连接成功", DB)
-		DB = db
+		return
 	}
-
+	DB = db
 }
