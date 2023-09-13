@@ -21,7 +21,7 @@ func (c *jwtCtrl) Generate(ctx *gin.Context) {
 	params := dto.User{}
 	ctx.BindJSON(&params)
 
-	token, err := tools.GenerateToken(params.Phone, params.Password, 2)
+	token, err := tools.GenerateToken(params.Phone, 2)
 
 	if err != nil {
 		res = tools.JsonReturn(err, "生成token失败", 400)
