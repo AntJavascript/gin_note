@@ -15,6 +15,11 @@ func CheckLogin() gin.HandlerFunc {
 		if !tools.InStringArray(ctx.Request.RequestURI, urlItem) {
 			// 从请求头中获取Token
 			token := ctx.GetHeader("Authorization");
+			if len(token) == 0 {
+				ctx.JSON(http.StatusOK, tools.JsonReturn("", "鉴权失败", 401))
+				ctx.Abort()
+				return
+			}
 			_, err := tools.ParseToken(token)
 			if err != nil {
 				ctx.JSON(http.StatusOK, tools.JsonReturn("", "Token已过期", 401))
