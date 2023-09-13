@@ -37,6 +37,7 @@ func GenerateToken(phone string, exp int) (string, error) {
 	return s, err
 }
 
+// 解析token
 func ParseToken(tokenstring string) (*Claims, error) {
 	t, err := jwt.ParseWithClaims(tokenstring, &Claims{}, func(token *jwt.Token) (interface{}, error) {
 		return []byte(jwtSecret), nil
@@ -47,4 +48,17 @@ func ParseToken(tokenstring string) (*Claims, error) {
 	} else {
 		return nil, err
 	}
+}
+
+// RefreshToken 通过 refresh token 刷新 atoken
+func RefreshToken(atoken, rtoken string) (string, string, error) {
+	// rtoken 无效直接返回
+	claim, err := ParseToken(rtoken)
+	if err != nil {
+		return "", "", err
+	}
+	access_token, err := GenerateToken(claim.Phone, claim.Password, 2) // 2小时过期
+	refresh_token, err := GenerateToken(claim.Phone, claim.Password, 168) // 7天过期
+
+	return access_token, refresh_token, err
 }
