@@ -15,15 +15,13 @@ var jwtSecret = []byte("C2vbgqjAeOx6HBLdfm0uYthZXkl4JzTp")
 // Claim是一些实体（通常指的用户）的状态和额外的元数据
 type Claims struct {
 	Phone    string `json:"phone"`
-	Password string `json:"password"`
 	jwt.RegisteredClaims
 }
 
 // 根据用户的用户名产生token
-func GenerateToken(phone, pwd string, exp int) (string, error) {
+func GenerateToken(phone string, exp int) (string, error) {
 	claims := Claims{
 		phone,
-		pwd,
 		jwt.RegisteredClaims{
 			Audience:  jwt.ClaimStrings{"note_app"},
 			Subject:   "note_go",
