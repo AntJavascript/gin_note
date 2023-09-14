@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"strings"
 	"time"
+
+	"github.com/gin-gonic/gin"
 )
 
 // 日期格式转换
@@ -13,7 +15,7 @@ func formatAsDate(t time.Time) string {
 }
 
 // 统一处理返回json数据
-func JsonReturn(data interface{}, msg interface{}, code int) map[string]interface{} {
+func JsonReturn(ctx *gin.Context, data interface{}, msg interface{}, code int) map[string]interface{} {
 	res := make(map[string]interface{})
 
 	res["data"] = data
@@ -93,7 +95,7 @@ func InStringArray(value string, array []string) bool {
 }
 
 // 获取新的token
-func GetNewToken(ctx *gin.Context) (string, string){
+func GetNewToken(ctx *gin.Context) (string, string) {
 	access_token := ctx.MustGet("access_token").(string)
 	refresh_token := ctx.MustGet("refresh_token").(string)
 

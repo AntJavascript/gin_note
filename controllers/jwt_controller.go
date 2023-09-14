@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"net/http"
+
 	"example.com/m/v2/dto"
 	"example.com/m/v2/tools"
 	"github.com/gin-gonic/gin"
@@ -9,7 +10,7 @@ import (
 
 var JwtStruct = new(jwtCtrl)
 
-type jwtCtrl struct{
+type jwtCtrl struct {
 	Token string
 }
 
@@ -24,9 +25,9 @@ func (c *jwtCtrl) Generate(ctx *gin.Context) {
 	token, err := tools.GenerateToken(params.Phone, 2)
 
 	if err != nil {
-		res = tools.JsonReturn(err, "生成token失败", 400)
+		res = tools.JsonReturn(ctx, err, "生成token失败", 400)
 	} else {
-		res = tools.JsonReturn(err, "生成token成功",200)
+		res = tools.JsonReturn(ctx, "", "生成token成功", 200)
 	}
 	res["token"] = token
 	ctx.JSON(http.StatusOK, res)
@@ -38,7 +39,7 @@ func (c *jwtCtrl) Parse(ctx *gin.Context) {
 	res := make(map[string]interface{})
 
 	// 解析前端body参数
-	params :=jwtCtrl{}
+	params := jwtCtrl{}
 	ctx.BindJSON(&params)
 
 	claims, err := tools.ParseToken(params.Token)
@@ -46,7 +47,7 @@ func (c *jwtCtrl) Parse(ctx *gin.Context) {
 	if err != nil {
 		res = tools.JsonReturn(err, "解析token失败", 400)
 	} else {
-		res = tools.JsonReturn(err, "解析token成功",200)
+		res = tools.JsonReturn(err, "解析token成功", 200)
 	}
 	res["claims"] = claims
 	ctx.JSON(http.StatusOK, res)

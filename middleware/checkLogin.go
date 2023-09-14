@@ -2,9 +2,10 @@ package middleware
 
 import (
 	"fmt"
+	"net/http"
+
 	"example.com/m/v2/tools"
 	"github.com/gin-gonic/gin"
-	"net/http"
 )
 
 func CheckLogin() gin.HandlerFunc {
@@ -14,10 +15,10 @@ func CheckLogin() gin.HandlerFunc {
 		urlItem := []string{"/user/register", "/user/login", "/jwt/generateToken", "/jwt/parseToken"}
 		if !tools.InStringArray(ctx.Request.RequestURI, urlItem) {
 			// 从请求头中获取Token
-			access_token := ctx.GetHeader("access_token");
-			refresh_token := ctx.GetHeader("refresh_token");
+			access_token := ctx.GetHeader("access_token")
+			refresh_token := ctx.GetHeader("refresh_token")
 			if len(access_token) == 0 || len(refresh_token) == 0 {
-				ctx.JSON(http.StatusOK, tools.JsonReturn("", "鉴权失败", 401))
+				ctx.JSON(http.StatusOK, tools.JsonReturn(ctx, "", "鉴权失败", 401))
 				ctx.Abort()
 				return
 			}
@@ -33,7 +34,7 @@ func CheckLogin() gin.HandlerFunc {
 				ctx.Set("access_token", new_access_token)
 				ctx.Set("refresh_token", new_refresh_token)
 			} else if refresh_err != nil {
-				ctx.JSON(http.StatusOK, tools.JsonReturn("", "Token已过期, 请重新登录", 401))
+				ctx.JSON(http.StatusOK, tools.JsonReturn(ctx, "", "Token已过期, 请重新登录", 401))
 				ctx.Abort()
 				return
 			}

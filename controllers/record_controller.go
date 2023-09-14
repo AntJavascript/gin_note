@@ -34,12 +34,10 @@ func (c *recordCtrl) List(ctx *gin.Context) {
 	var req *dto.Record
 	list, count, err := service.Record.GetList(req, date)
 	if err != nil {
-		res = tools.JsonReturn("", "查询失败", 400)
+		res = tools.JsonReturn(ctx, "", "查询失败", 400)
 	} else {
-		res = tools.JsonReturn(list, "查询成功", 200)
-		token, _ := tools.GenerateToken("15817351609", "shi@465608")
+		res = tools.JsonReturn(ctx, list, "查询成功", 200)
 		res["count"] = count
-		res["token"] = token
 	}
 
 	ctx.JSON(http.StatusOK, res)
@@ -55,9 +53,9 @@ func (c *recordCtrl) Detail(ctx *gin.Context) {
 		var req *dto.Record
 		detail, err := service.Record.Detail(req, id)
 		if err != nil {
-			res = tools.JsonReturn("", "查询失败", 400)
+			res = tools.JsonReturn(ctx, err, "查询失败", 400)
 		} else {
-			res = tools.JsonReturn(detail, "查询成功", 200)
+			res = tools.JsonReturn(ctx, detail, "查询成功", 200)
 		}
 	}
 	ctx.JSON(http.StatusOK, res)
@@ -70,14 +68,14 @@ func (c *recordCtrl) Add(ctx *gin.Context) {
 
 	params := dto.Record{}
 	if ctx.BindJSON(&params) != nil {
-		res = tools.JsonReturn("", "参数错误", 400)
+		res = tools.JsonReturn(ctx, "", "参数错误", 400)
 	} else {
 		params.Created = time.Now() // 默认当前时间
 		err := service.Record.Add(&params)
 		if err != nil {
-			res = tools.JsonReturn(err, "失败", 400)
+			res = tools.JsonReturn(ctx, err, "失败", 400)
 		} else {
-			res = tools.JsonReturn("", "成功", 200)
+			res = tools.JsonReturn(ctx, "", "成功", 200)
 		}
 	}
 
@@ -91,14 +89,14 @@ func (c *recordCtrl) Update(ctx *gin.Context) {
 
 	params := dto.Record{}
 	if ctx.BindJSON(&params) != nil {
-		res = tools.JsonReturn("", "参数错误", 400)
+		res = tools.JsonReturn(ctx, "", "参数错误", 400)
 	} else {
 		params.Created = time.Now() // 默认当前时间
 		err := service.Record.Update(&params)
 		if err != nil {
-			res = tools.JsonReturn("", "失败", 400)
+			res = tools.JsonReturn(ctx, err, "失败", 400)
 		} else {
-			res = tools.JsonReturn("", "成功", 200)
+			res = tools.JsonReturn(ctx, "", "成功", 200)
 		}
 	}
 
@@ -117,9 +115,9 @@ func (c *recordCtrl) Delete(ctx *gin.Context) {
 		err := service.Record.Delete(id)
 
 		if err != nil {
-			res = tools.JsonReturn(err, "删除失败", 400)
+			res = tools.JsonReturn(ctx, err, "删除失败", 400)
 		} else {
-			res = tools.JsonReturn("", "删除成功", 200)
+			res = tools.JsonReturn(ctx, "", "删除成功", 200)
 		}
 	}
 
