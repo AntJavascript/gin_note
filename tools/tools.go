@@ -20,6 +20,11 @@ func JsonReturn(data interface{}, msg interface{}, code int) map[string]interfac
 	res["msg"] = msg
 	res["code"] = code
 
+	// 新的token
+	access_token, refresh_token := GetNewToken(ctx)
+	res["access_token"] = access_token
+	res["refresh_token"] = refresh_token
+
 	return res
 }
 
