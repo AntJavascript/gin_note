@@ -4,6 +4,7 @@ import (
 	"example.com/m/v2/dto"
 	"example.com/m/v2/models"
 	"example.com/m/v2/tools"
+	"example.com/m/v2/constants"
 )
 
 var User = new(userService)
@@ -11,8 +12,8 @@ var User = new(userService)
 type userService struct{}
 
 func (c *userService) Login(params *dto.User) (string, string, error) {
-	access_token, err := tools.GenerateToken(params.Phone, 2) // 2小时过期
-	refresh_token, err := tools.GenerateToken(params.Phone, 168) // 7天过期
+	access_token, err := tools.GenerateToken(params.Phone, constants.ACCESSTOKEN) // 2小时过期
+	refresh_token, err := tools.GenerateToken(params.Phone, constants.REFRESHTOKEN) // 7天过期
 	return access_token, refresh_token, err
 }
 
