@@ -86,3 +86,11 @@ func InStringArray(value string, array []string) bool {
 	}
 	return false
 }
+
+// 获取新的token
+func GetNewToken(ctx *gin.Context) (string, string){
+	access_token := ctx.MustGet("access_token").(string)
+	refresh_token := ctx.MustGet("refresh_token").(string)
+
+	return access_token, refresh_token
+}
