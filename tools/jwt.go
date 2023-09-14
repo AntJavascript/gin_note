@@ -2,7 +2,7 @@ package tools
 
 import (
 	"time"
-
+	"example.com/m/v2/constants"
 	"github.com/golang-jwt/jwt/v5"
 )
 
@@ -25,7 +25,7 @@ func GenerateToken(phone string, exp int) (string, error) {
 		jwt.RegisteredClaims{
 			Audience:  jwt.ClaimStrings{"note_app"},
 			Subject:   "note_go",
-			ExpiresAt: jwt.NewNumericDate(time.Now().Add(time.Duration(exp) * time.Hour)), // 过期时间24小时
+			ExpiresAt: jwt.NewNumericDate(time.Now().Add(time.Duration(exp) * time.Hour)), // 过期时间
 			IssuedAt:  jwt.NewNumericDate(time.Now()),                     // 签发时间
 			NotBefore: jwt.NewNumericDate(time.Now()),                     // 生效时间
 		},
@@ -57,8 +57,8 @@ func RefreshToken(atoken, rtoken string) (string, string, error) {
 	if err != nil {
 		return "", "", err
 	}
-	access_token, err := GenerateToken(claim.Phone, claim.Password, 2) // 2小时过期
-	refresh_token, err := GenerateToken(claim.Phone, claim.Password, 168) // 7天过期
+	access_token, err := GenerateToken(claim.Phone, claim.Password, constants.ACCESSTOKEN)
+	refresh_token, err := GenerateToken(claim.Phone, claim.Password, constants.REFRESHTOKEN)
 
 	return access_token, refresh_token, err
 }
