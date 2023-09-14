@@ -9,8 +9,6 @@ import (
 
 func CheckLogin() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
-		ctx.Set("access_token", "")
-		ctx.Set("refresh_token", "")
 		fmt.Println("登录验证中间件")
 		// 放行设置
 		urlItem := []string{"/user/register", "/user/login", "/jwt/generateToken", "/jwt/parseToken"}
