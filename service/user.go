@@ -12,8 +12,8 @@ var User = new(userService)
 type userService struct{}
 
 func (c *userService) Login(params *dto.User) (string, string, error) {
-	access_token, err := tools.GenerateToken(params.Phone, constants.ACCESSTOKEN) // 2小时过期
-	refresh_token, err := tools.GenerateToken(params.Phone, constants.REFRESHTOKEN) // 7天过期
+	access_token, err := tools.GenerateToken(params.Phone, constants.ACCESSTOKEN)
+	refresh_token, err := tools.GenerateToken(params.Phone, constants.REFRESHTOKEN)
 	return access_token, refresh_token, err
 }
 
