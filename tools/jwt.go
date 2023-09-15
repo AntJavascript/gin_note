@@ -57,8 +57,8 @@ func RefreshToken(atoken, rtoken string) (string, string, error) {
 	if err != nil {
 		return "", "", err
 	}
-	access_token, err := GenerateToken(claim.Phone, claim.Password, constants.ACCESSTOKEN)
-	refresh_token, err := GenerateToken(claim.Phone, claim.Password, constants.REFRESHTOKEN)
+	access_token, err := GenerateToken(claim.Phone, constants.ACCESSTOKEN)
+	refresh_token, err := GenerateToken(claim.Phone, constants.REFRESHTOKEN)
 
 	return access_token, refresh_token, err
 }
