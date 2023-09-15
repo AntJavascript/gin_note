@@ -45,9 +45,9 @@ func (c *jwtCtrl) Parse(ctx *gin.Context) {
 	claims, err := tools.ParseToken(params.Token)
 
 	if err != nil {
-		res = tools.JsonReturn(err, "解析token失败", 400)
+		res = tools.JsonReturn(ctx, err, "解析token失败", 400)
 	} else {
-		res = tools.JsonReturn(err, "解析token成功", 200)
+		res = tools.JsonReturn(ctx, err, "解析token成功", 200)
 	}
 	res["claims"] = claims
 	ctx.JSON(http.StatusOK, res)
