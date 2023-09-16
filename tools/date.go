@@ -40,11 +40,7 @@ func GetMonthDaxDay(year, month string) int {
 }
 
 //string 转 时间戳 
-// func StringAsTampTime(time string) int64 {
-//   loc, _ := time.LoadLocation("Local") 
-//   the_time, err := time.ParseInLocation("2006-01-01 00:00:00", time, loc) 
-// 	if err == nil { 
-// 		return the_time.Unix()
-// 	}
-// 	return 0
-// }
+func StringAsTampTime(time string) int64 {
+  the_time := StringAsTime(time)
+  return the_time.Unix()
+}
