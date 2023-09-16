@@ -12,7 +12,7 @@ type recordService struct{}
 // 根据日期获取列表
 func (c *recordService) GetList(req *dto.Record, date string) ([]dto.Record, int, error) {
 	var result []dto.Record
-	models.DB.Where("created = ?", date).Find(&result)
+	models.DB.Where("record_date = ?", date).Find(&result)
 	return result, len(result), nil
 }
 
