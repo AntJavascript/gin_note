@@ -10,7 +10,7 @@ var Total = new(totalService)
 type totalService struct{}
 
 // 统计当天支出和收入
-func (c *totalService) GetDayTotal(date string) (float64, float64, error) {
+func (c *totalService) GetDayTotal(date int64) (float64, float64, error) {
 	
 	var result []dto.Record
 
