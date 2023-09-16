@@ -99,3 +99,11 @@ func GetNewToken(ctx *gin.Context) (string, string) {
 func ToString(value int) string {
 	return fmt.Sprintf("%s", value)
 }
+
+// 获取请求的头部token相关信息
+func GetHearToken (ctx *gin.Context) (string, string){
+	access_token := ctx.Request.Header.Get("access_token")
+	refresh_token := ctx.Request.Header.Get("refresh_token")
+
+	return access_token, refresh_token
+}
