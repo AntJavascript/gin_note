@@ -94,3 +94,8 @@ func GetNewToken(ctx *gin.Context) (string, string) {
 
 	return access_token, refresh_token
 }
+
+// 数字转字符串
+func ToString(value int) string {
+	return fmt.Sprintf("%s", value)
+}
