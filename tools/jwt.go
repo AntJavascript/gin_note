@@ -62,3 +62,12 @@ func RefreshToken(atoken, rtoken string) (string, string, error) {
 
 	return access_token, refresh_token, err
 }
+
+// 获取token数据的账号信息
+func GetTokenAccount(tokenstring string) string {
+  token, err := ParseToken(tokenstring)
+	if err == nil {
+		return token.Phone
+	}
+	return ""
+}
