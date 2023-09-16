@@ -1,18 +1,11 @@
 package tools
 
 import (
-	"fmt"
 	"strings"
 	"time"
 
 	"github.com/gin-gonic/gin"
 )
-
-// 日期格式转换
-func formatAsDate(t time.Time) string {
-	year, month, day := t.Date()
-	return fmt.Sprintf("%d-%d-%d", year, month, day)
-}
 
 // 统一处理返回json数据
 func JsonReturn(ctx *gin.Context, data interface{}, msg interface{}, code int) map[string]interface{} {
