@@ -36,7 +36,7 @@ func init() {
 	budget := router.Group("budget")
 	{
 		budget.GET("/getBudget", controllers.BudgetStruct.GetBudget)
-		budget.post("/setBudget", controllers.BudgetStruct.SetBudget)
+		budget.POST("/setBudget", controllers.BudgetStruct.SetBudget)
 	}
 	
 	/* 登录相关 */
