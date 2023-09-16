@@ -23,18 +23,31 @@ func init() {
 		record.POST("/update", controllers.Record.Update)
 		record.POST("/delete/:id", controllers.Record.Delete)
 	}
+	
+	// 统计相关
+	total := router.Group("total")
+	{
+		total.GET("/day", controllers.TotalStruct.GetDay)
+		total.GET("/month", controllers.TotalStruct.GetMonth)
+		// record.GET("/year/:year", controllers.TotalStruct.GetYear)
+		// record.GET("/getBudget", controllers.TotalStruct.GetBudget)
+		// record.post("/setBudget", controllers.TotalStruct.SetBudget)
+	}
+	
 	/* 登录相关 */
 	user := router.Group("user")
 	{
 		user.POST("/login", controllers.User.Login)
 		user.POST("/register", controllers.User.Register)
 	}
+	
 	/* jwt相关 */
 	jwt := router.Group("jwt")
 	{
 		jwt.POST("/generateToken", controllers.JwtStruct.Generate)
 		jwt.POST("/parseToken", controllers.JwtStruct.Parse)
 	}
+	
 	// 启动
 	router.Run(":9099")
 }
