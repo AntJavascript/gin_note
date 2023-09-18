@@ -13,3 +13,6 @@ docker images
 
 ### 查看docker 是否在运行
 docker ps
+
+### 访问测试接口
+127.0.0.1:8080/test
