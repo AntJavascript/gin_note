@@ -52,6 +52,14 @@ func init() {
 		jwt.POST("/parseToken", controllers.JwtStruct.Parse)
 	}
 	
+	/* 测试路由 */
+	router.GET("/test", func(ctx *gin.Context) {
+		ctx.JSON(200, gin.H{
+			"code": 200,
+			"msg": "测试成功",
+		})
+	})
+	
 	// 启动
-	router.Run(":9099")
+	router.Run(":8080")
 }
