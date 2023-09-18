@@ -45,11 +45,11 @@ func (c *totalCtrl) GetDay(ctx *gin.Context) {
 func (c *totalCtrl) GetMonth(ctx *gin.Context) {
 	res := make(map[string]interface{})
 
-	year := ctx.Query("year") // 年
+	year := ctx.Query("year")   // 年
 	month := ctx.Query("month") // 月
 
 	var startDate int64 // 月初第一天
-	var endDate int64 // 月底最后一天
+	var endDate int64   // 月底最后一天
 
 	if year == "" || month == "" {
 		// 默认本年、本月
@@ -81,7 +81,7 @@ func (c *totalCtrl) GetYear(ctx *gin.Context) {
 	year := ctx.Param("year")
 
 	var startDate int64 // 本年第一天
-	var endDate int64 // 本年最后一天
+	var endDate int64   // 本年最后一天
 
 	if year == "" {
 		// 默认本年

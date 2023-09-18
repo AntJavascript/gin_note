@@ -70,7 +70,6 @@ func (c *recordCtrl) Add(ctx *gin.Context) {
 	if ctx.BindJSON(&params) != nil {
 		res = tools.JsonReturn(ctx, "", "参数错误", 400)
 	} else {
-		params.Created = time.Now() // 默认当前时间
 		err := service.Record.Add(&params)
 		if err != nil {
 			res = tools.JsonReturn(ctx, err, "失败", 400)
@@ -91,7 +90,6 @@ func (c *recordCtrl) Update(ctx *gin.Context) {
 	if ctx.BindJSON(&params) != nil {
 		res = tools.JsonReturn(ctx, "", "参数错误", 400)
 	} else {
-		params.Created = time.Now() // 默认当前时间
 		err := service.Record.Update(&params)
 		if err != nil {
 			res = tools.JsonReturn(ctx, err, "失败", 400)

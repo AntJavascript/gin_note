@@ -1,8 +1,8 @@
 package tools
 
 import (
+	"fmt"
 	"strings"
-	"time"
 
 	"github.com/gin-gonic/gin"
 )
