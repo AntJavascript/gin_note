@@ -16,3 +16,5 @@ docker ps
 
 ### 访问测试接口
 127.0.0.1:8080/test
+
+Error response from daemon: failed to create task for container: failed to create shim task: OCI runtime create failed: runc create failed: unable to start container process: exec: "./build/main-linux": permission denied: unknown.
