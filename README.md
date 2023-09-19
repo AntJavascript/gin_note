@@ -3,10 +3,10 @@
 ### docker部署腾讯云服务器
 
 ### 执行docker build
-docker build  -t go-docker:latest .
+docker build  -t go-docker:v1 .
 
 ### 执行doker run
-docker run -d -p 8080:8080 go-docker:latest
+docker run -d -p 8080:8080 go-docker:v1
 
 ### 查看docker镜像
 docker images
