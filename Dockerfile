@@ -1,10 +1,12 @@
-FROM goalng:1.2-app
+FROM golang:1.19
 
 # 工作目录路径
-WORKDIR /build
+WORKDIR /app
+
+COPY linux-main ./
 
 # 端口号
 EXPOSE 8080
 
-# 入口文件
-ENTRYPOINT ["/build/main"]
+# run
+CMD ["/build/main"]
