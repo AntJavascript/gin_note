@@ -35,6 +35,7 @@ func (c *recordService) Add(params *dto.Record) error {
 // 更新数据
 func (c *recordService) Update(params *dto.Record) error {
 	err := models.DB.Save(&params).Error
+	// err := models.DB.Updates(&params).Error
 	if  err != nil {
 		return err
 	}
