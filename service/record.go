@@ -18,10 +18,8 @@ func (c *recordService) GetList(req *dto.Record, date string) ([]dto.Record, int
 
 // 根据id获取详情
 func (c *recordService) Detail(req *dto.Record, id int) (dto.Record, error) {
-	detail := dto.Record{
-		Id: id,
-	}
-	models.DB.Find(&detail)
+	detail := dto.Record{}
+	models.DB.Find(&detail, id)
 	return detail, nil
 }
 
