@@ -28,7 +28,5 @@ func init() {
 	}
 	DB = db
 	//自动创建数据表
-	DB.AutoMigrate(&model.User{})
-	DB.AutoMigrate(&model.Record{})
-	DB.AutoMigrate(&model.Budget{})
+	DB.AutoMigrate(&model.User{}, &model.Record{}, &model.Budget{})
 }
