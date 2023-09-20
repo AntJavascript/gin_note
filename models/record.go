@@ -7,7 +7,7 @@ import (
 // 收支记录字段
 type Record struct {
 	gorm.Model
-	Type       string  `gorm:"not null"`    // income(收入)、expend(支出)
+	Type       string  `gorm:"default:'expend';not null"`    // income(收入)、expend(支出)
 	RecordDate string  `gorm:"not null"`    // 日期
 	RecordDateUnix int64  `gorm:"not null"`    // 时间戳
 	Amount     float64  `gorm:"not null"`   // 金额
