@@ -27,9 +27,6 @@ func init() {
 		return
 	}
 	DB = db
-
-	defer DB.Close()
-	
 	//自动创建数据表
 	DB.AutoMigrate(&model.User{})
 	DB.AutoMigrate(&model.Record{})
