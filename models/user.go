@@ -10,7 +10,7 @@ type User struct {
 	UserName string
 	Password string `gorm:"size:255;not null"`
 	Email    string
-	Phone    string `gorm:"type:varchar(11);not null"`
+	Phone    string  `gorm:"varchar(11);not null;unique"`
 	Face     string // 用户头像
 	Status   int    // 账号状态
 }
