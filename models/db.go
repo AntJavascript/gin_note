@@ -30,4 +30,6 @@ func init() {
 	
 	//自动创建数据表User
 	DB.AutoMigrate(&model.User{})
+	DB.AutoMigrate(&model.Record{})
+	DB.AutoMigrate(&model.Budget{})
 }
