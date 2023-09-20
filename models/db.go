@@ -27,4 +27,7 @@ func init() {
 		return
 	}
 	DB = db
+	
+	//自动创建数据表User
+	DB.AutoMigrate(&model.User{})
 }
