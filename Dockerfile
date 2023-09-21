@@ -1,10 +1,12 @@
-FROM goalng:1.2-app
+FROM golang:latest
 
-# 工作目录路径
-WORKDIR /build
+LABEL cjl "cjl_spy@163.com"
 
-# 端口号
+WORKDIR /root
+
+ADD ./build/main-linux ./build/main-linux
+
+
 EXPOSE 8080
 
-# 入口文件
-ENTRYPOINT ["/build/main"]
+ENTRYPOINT  ["./build/main-linux"]

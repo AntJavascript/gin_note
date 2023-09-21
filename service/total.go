@@ -51,6 +51,6 @@ func (c *totalService) GetMonthTotal(startDate, endDate int64) (float64, float64
 	return incomeCount, expendCount, nil
 }
 
-func (c *totalService) GetMonthOrYearTotal(startDate, endDate int64) (float64, error) {
-	return 0, nil
+func (c *totalService) GetMonthOrYearTotal(startDate, endDate int64) (float64, float64, error) {
+	return 0, 0, nil
 }
