@@ -3,7 +3,6 @@ package models
 import (
 	"fmt"
 
-	"example.com/m/v2/models"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
@@ -12,8 +11,8 @@ import (
 const (
 	host     = "101.42.156.245"
 	port     = "3306"
-	username = "root"
-	pwd      = "shi465608"
+	username = "note_app"
+	pwd      = "kSDaWSS3GBJjyFPi"
 	database = "note_app"
 )
 
@@ -29,5 +28,5 @@ func init() {
 	}
 	DB = db
 	//自动创建数据表
-	DB.AutoMigrate(&models.User{}, &models.Record{}, &models.Budget{})
+	DB.AutoMigrate(&User{}, &Record{}, &Budget{})
 }

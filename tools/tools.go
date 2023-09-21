@@ -16,9 +16,9 @@ func JsonReturn(ctx *gin.Context, data interface{}, msg interface{}, code int) m
 	res["code"] = code
 
 	// 新的token
-	access_token, refresh_token := GetNewToken(ctx)
-	res["access_token"] = access_token
-	res["refresh_token"] = refresh_token
+	// access_token, refresh_token := GetNewToken(ctx)
+	// res["access_token"] = access_token
+	// res["refresh_token"] = refresh_token
 
 	return res
 }
@@ -101,7 +101,7 @@ func ToString(value int) string {
 }
 
 // 获取请求的头部token相关信息
-func GetHearToken (ctx *gin.Context) (string, string){
+func GetHearToken(ctx *gin.Context) (string, string) {
 	access_token := ctx.Request.Header.Get("access_token")
 	refresh_token := ctx.Request.Header.Get("refresh_token")
 
