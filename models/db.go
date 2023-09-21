@@ -9,7 +9,7 @@ import (
 
 // 数据库配置
 const (
-	host     = "127.0.0.1"
+	host     = "101.42.156.245"
 	port     = "3306"
 	username = "root"
 	pwd      = "shi465608"
@@ -27,4 +27,6 @@ func init() {
 		return
 	}
 	DB = db
+	//自动创建数据表
+	DB.AutoMigrate(&model.User{}, &model.Record{}, &model.Budget{})
 }

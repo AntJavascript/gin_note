@@ -18,17 +18,15 @@ func (c *recordService) GetList(req *dto.Record, date string) ([]dto.Record, int
 
 // 根据id获取详情
 func (c *recordService) Detail(req *dto.Record, id int) (dto.Record, error) {
-	detail := dto.Record{
-		Id: id,
-	}
-	models.DB.Find(&detail)
+	detail := dto.Record{}
+	models.DB.Find(&detail, id)
 	return detail, nil
 }
 
 // 添加数据
 func (c *recordService) Add(params *dto.Record) error {
-
-	if err := models.DB.Create(&params).Error; err != nil {
+	err := models.DB.Create(&params).Error
+	if err != nil {
 		return err
 	}
 	return nil
@@ -36,8 +34,9 @@ func (c *recordService) Add(params *dto.Record) error {
 
 // 更新数据
 func (c *recordService) Update(params *dto.Record) error {
-
-	if err := models.DB.Save(&params).Error; err != nil {
+	err := models.DB.Save(&params).Error
+	// err := models.DB.Updates(&params).Error
+	if  err != nil {
 		return err
 	}
 	return nil

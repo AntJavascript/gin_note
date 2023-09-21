@@ -1,12 +1,11 @@
-FROM golang:latest
+FROM alpine
 
-LABEL cjl "cjl_spy@163.com"
+# 工作目录路径
+WORKDIR /app
 
-WORKDIR /root
-
-ADD ./build/main-linux ./build/main-linux
-
+ADD ./main ./main
 
 EXPOSE 8080
 
-ENTRYPOINT  ["./build/main-linux"]
+# run
+ENTRYPOINT ["./main"]

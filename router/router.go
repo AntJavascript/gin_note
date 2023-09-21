@@ -43,6 +43,7 @@ func init() {
 	user := router.Group("user")
 	{
 		user.POST("/login", controllers.User.Login)
+		user.POST("/register", controllers.User.Register)
 	}
 	
 	/* jwt相关 */
