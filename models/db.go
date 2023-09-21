@@ -3,6 +3,7 @@ package models
 import (
 	"fmt"
 
+	"example.com/m/v2/models"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
@@ -28,5 +29,5 @@ func init() {
 	}
 	DB = db
 	//自动创建数据表
-	DB.AutoMigrate(&model.User{}, &model.Record{}, &model.Budget{})
+	DB.AutoMigrate(&models.User{}, &models.Record{}, &models.Budget{})
 }
