@@ -3,23 +3,25 @@ package tools
 import (
 	"fmt"
 	"strings"
-
+	"example.com/m/v2/constants"
 	"github.com/gin-gonic/gin"
 )
 
 // 统一处理返回json数据
-func JsonReturn(ctx *gin.Context, data interface{}, msg interface{}, code int) map[string]interface{} {
+func JsonReturn(data *constants.CommonJson) map[string]interface{} {
 	res := make(map[string]interface{})
 
-	res["data"] = data
-	res["msg"] = msg
-	res["code"] = code
+	res["data"] = data.data
+	res["msg"] = data.msg
+	res["code"] = data.code
 
-	// 新的token
-	// access_token, refresh_token := GetNewToken(ctx)
-	// res["access_token"] = access_token
-	// res["refresh_token"] = refresh_token
-
+	// 是否生成新的token
+	if(data.newToken) {
+		access_token, refresh_token := GetNewToken(data.ctx)
+		res["access_token"] = access_token
+		res["refresh_token"] = refresh_token
+	}
+	
 	return res
 }
 
