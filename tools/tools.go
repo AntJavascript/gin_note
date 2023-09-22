@@ -11,13 +11,13 @@ import (
 func JsonReturn(data *constants.CommonJson) map[string]interface{} {
 	res := make(map[string]interface{})
 
-	res["data"] = data.data
-	res["msg"] = data.msg
-	res["code"] = data.code
+	res["data"] = data.Data
+	res["msg"] = data.Msg
+	res["code"] = data.Code
 
 	// 是否生成新的token
-	if(data.newToken) {
-		access_token, refresh_token := GetNewToken(data.ctx)
+	if(data.NewToken) {
+		access_token, refresh_token := GetNewToken(data.Ctx)
 		res["access_token"] = access_token
 		res["refresh_token"] = refresh_token
 	}
