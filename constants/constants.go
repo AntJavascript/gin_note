@@ -16,3 +16,12 @@ const (
 	// 返回状态码
 	STATUSOK = http.StatusOK
 )
+
+// 标准json返回函数参数
+type CommonJson struct {
+	Ctx    *gin.Context
+	Data   interface{}
+	Msg    string
+	Code   int
+	NewToken bool
+}
