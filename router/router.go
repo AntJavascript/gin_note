@@ -2,7 +2,7 @@ package router
 
 import (
 	"example.com/m/v2/controllers"
-	// "example.com/m/v2/middleware"
+	"example.com/m/v2/middleware"
 	"github.com/gin-gonic/gin"
 )
 
@@ -10,9 +10,9 @@ func init() {
 	// 初始化
 	router := gin.Default()
 	// 登录验证中间件
-	// router.Use(middleware.CheckLogin())
+	router.Use(middleware.CheckLogin())
 	// 设置静态资源路由
-	router.Static("/static", "../static/img")
+	// router.Static("/static", "../static/img")
 
 	/* 收支记录 */
 	record := router.Group("record")
