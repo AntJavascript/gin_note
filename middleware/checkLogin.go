@@ -8,6 +8,12 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// 设置token
+func setToken(ctx *gin.Context, access_token, refresh_token string) {
+	ctx.Set("access_token", access_token)
+	ctx.Set("refresh_token", refresh_token)
+}
+
 func CheckLogin() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		fmt.Println("登录验证中间件")
@@ -18,6 +24,7 @@ func CheckLogin() gin.HandlerFunc {
 			access_token := ctx.GetHeader("access_token")
 			refresh_token := ctx.GetHeader("refresh_token")
 			if len(access_token) == 0 || len(refresh_token) == 0 {
+				setToken(ctx, "", "")
 				ctx.JSON(http.StatusOK, tools.JsonReturn(ctx, "", "鉴权失败", 401))
 				ctx.Abort()
 				return
@@ -28,17 +35,19 @@ func CheckLogin() gin.HandlerFunc {
 			// 验证refresh_token
 			_, refresh_err := tools.ParseToken(refresh_token)
 
-			// 已过期, 重新生成token
+			// access_token已过期、refresh_token未过期, 重新生成token
 			if err != nil && refresh_err == nil {
 				new_access_token, new_refresh_token, _ := tools.RefreshToken(access_token, refresh_token)
-				ctx.Set("access_token", new_access_token)
-				ctx.Set("refresh_token", new_refresh_token)
+				setToken(ctx, new_access_token, new_refresh_token)
 			} else if refresh_err != nil {
+				setToken(ctx, "", "")
 				ctx.JSON(http.StatusOK, tools.JsonReturn(ctx, "", "Token已过期, 请重新登录", 401))
 				ctx.Abort()
 				return
 			}
 
+		} else {
+			setToken(ctx, "", "") // 放行设置，也需要设置token为空
 		}
 		// 前置中间件
 		ctx.Next()
