@@ -70,6 +70,7 @@ func (c *recordCtrl) Add(ctx *gin.Context) {
 	if ctx.BindJSON(&params) != nil {
 		res = tools.JsonReturn(ctx, "", "参数错误", 400)
 	} else {
+		params.RecordDateUnix = tools.StringAsTampTime(params.RecordDate)
 		err := service.Record.Add(&params)
 		if err != nil {
 			res = tools.JsonReturn(ctx, err, "失败", 400)

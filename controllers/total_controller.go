@@ -25,7 +25,7 @@ func (c *totalCtrl) GetDay(ctx *gin.Context) {
 		now := time.Now()
 		year := now.Format("2006")
 		month := now.Format("01")
-		day := now.Format("01")
+		day := now.Format("02")
 		date = fmt.Sprintf("%s-%s-%s", year, month, day)
 	}
 	fmt.Println(date)

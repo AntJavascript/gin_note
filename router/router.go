@@ -23,7 +23,7 @@ func init() {
 		record.POST("/update", controllers.Record.Update)
 		record.POST("/delete/:id", controllers.Record.Delete)
 	}
-  
+
 	// 统计相关
 	total := router.Group("total")
 	{
@@ -38,29 +38,29 @@ func init() {
 		budget.GET("/getBudget", controllers.BudgetStruct.GetBudget)
 		budget.POST("/setBudget", controllers.BudgetStruct.SetBudget)
 	}
-	
+
 	/* 登录相关 */
 	user := router.Group("user")
 	{
 		user.POST("/login", controllers.User.Login)
 		user.POST("/register", controllers.User.Register)
 	}
-	
+
 	/* jwt相关 */
 	jwt := router.Group("jwt")
 	{
 		jwt.POST("/generateToken", controllers.JwtStruct.Generate)
 		jwt.POST("/parseToken", controllers.JwtStruct.Parse)
 	}
-	
+
 	/* 测试路由 */
 	router.GET("/test", func(ctx *gin.Context) {
 		ctx.JSON(200, gin.H{
 			"code": 200,
-			"msg": "测试成功",
+			"msg":  "测试成功",
 		})
 	})
-	
+
 	// 启动
 	router.Run(":8080")
 }
