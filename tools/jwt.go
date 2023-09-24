@@ -1,7 +1,9 @@
 package tools
 
 import (
+	"fmt"
 	"time"
+
 	"example.com/m/v2/constants"
 	"github.com/golang-jwt/jwt/v5"
 )
@@ -14,7 +16,7 @@ var jwtSecret = []byte("C2vbgqjAeOx6HBLdfm0uYthZXkl4JzTp")
 
 // Claim是一些实体（通常指的用户）的状态和额外的元数据
 type Claims struct {
-	Phone    string `json:"phone"`
+	Phone string `json:"phone"`
 	jwt.RegisteredClaims
 }
 
@@ -26,8 +28,8 @@ func GenerateToken(phone string, exp int) (string, error) {
 			Audience:  jwt.ClaimStrings{"note_app"},
 			Subject:   "note_go",
 			ExpiresAt: jwt.NewNumericDate(time.Now().Add(time.Duration(exp) * time.Hour)), // 过期时间
-			IssuedAt:  jwt.NewNumericDate(time.Now()),                     // 签发时间
-			NotBefore: jwt.NewNumericDate(time.Now()),                     // 生效时间
+			IssuedAt:  jwt.NewNumericDate(time.Now()),                                     // 签发时间
+			NotBefore: jwt.NewNumericDate(time.Now()),                                     // 生效时间
 		},
 	}
 	// 使用HS256签名算法
@@ -39,6 +41,9 @@ func GenerateToken(phone string, exp int) (string, error) {
 
 // 解析token
 func ParseToken(tokenstring string) (*Claims, error) {
+
+	fmt.Println("字符串token", tokenstring)
+
 	t, err := jwt.ParseWithClaims(tokenstring, &Claims{}, func(token *jwt.Token) (interface{}, error) {
 		return []byte(jwtSecret), nil
 	})
@@ -68,7 +73,7 @@ func RefreshToken(atoken, rtoken string) (string, string, error) {
 
 // 获取token数据的账号信息
 func GetTokenAccount(tokenstring string) string {
-  token, err := ParseToken(tokenstring)
+	token, err := ParseToken(tokenstring)
 	if err == nil {
 		return token.Phone
 	}

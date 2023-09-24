@@ -49,6 +49,7 @@ func CheckLogin() gin.HandlerFunc {
 		} else {
 			setToken(ctx, "", "") // 放行设置，也需要设置token为空
 		}
+		setToken(ctx, "", "")
 		// 前置中间件
 		ctx.Next()
 	}
