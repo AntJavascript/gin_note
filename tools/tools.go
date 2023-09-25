@@ -15,9 +15,10 @@ func JsonReturn(ctx *gin.Context, data interface{}, msg interface{}, code int) m
 
 	// 获取新的token
 	access_token, refresh_token := GetNewToken(ctx)
-	res["access_token"] = access_token
-	res["refresh_token"] = refresh_token
-
+	if (access_token != "" && refresh_token != "") {
+		res["access_token"] = access_token
+		res["refresh_token"] = refresh_token
+	}
 	return res
 }
 
