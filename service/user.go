@@ -18,18 +18,18 @@ func (c *userService) Login(params *dto.User) (string, string, error) {
 }
 
 // 查询用户是否存在
-func (c *userService) QueryUser(params *dto.User) (bool, dto.User) {
+func (c *userService) QueryUser(phone string) (bool, dto.User) {
 	result := dto.User{}
 	has := false
-	models.DB.Where("phone = ?", params.Phone).Find(&result)
-	if result.Phone == params.Phone {
+	models.DB.Where("phone = ?", phone).Find(&result)
+	if result.Phone == phone {
 		has = true
 	}
 	return has, result
 }
 
 // 注册新用户
-func (c *userService) Register(params *dto.User) error {
+func (c *userService) Register(params *models.User) error {
   if err := models.DB.Create(&params).Error; err != nil {
 		return err
 	}
