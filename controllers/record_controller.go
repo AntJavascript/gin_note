@@ -7,9 +7,9 @@ import (
 	"time"
 
 	"example.com/m/v2/dto"
+	"example.com/m/v2/models"
 	"example.com/m/v2/service"
 	"example.com/m/v2/tools"
-	"example.com/m/v2/models"
 	"github.com/gin-gonic/gin"
 )
 
@@ -68,11 +68,12 @@ func (c *recordCtrl) Add(ctx *gin.Context) {
 	res := make(map[string]interface{})
 
 	params := models.Record{}
-	if ctx.BindJSON(&params) != nil {
-		res = tools.JsonReturn(ctx, "", "参数错误", 400)
+	err := ctx.BindJSON(&params)
+	if err != nil {
+		res = tools.JsonReturn(ctx, err, "参数错误", 400)
 	} else {
 		params.RecordDateUnix = tools.StringAsTampTime(params.RecordDate) // 生成时间戳
-		err := service.Record.Add(&params)
+		err = service.Record.Add(&params)
 		if err != nil {
 			res = tools.JsonReturn(ctx, err, "失败", 400)
 		} else {

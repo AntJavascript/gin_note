@@ -9,10 +9,12 @@ import (
 
 // 数据库配置
 const (
-	host     = "101.42.156.245"
+	// host     = "101.42.156.245"
+	host     = "127.0.0.1"
 	port     = "3306"
-	username = "note_app"
-	pwd      = "kSDaWSS3GBJjyFPi"
+	username = "root"
+	// pwd      = "kSDaWSS3GBJjyFPi"
+	pwd      = "shi465608"
 	database = "note_app"
 )
 

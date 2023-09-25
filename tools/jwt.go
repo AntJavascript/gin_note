@@ -1,7 +1,6 @@
 package tools
 
 import (
-	"fmt"
 	"time"
 
 	"example.com/m/v2/constants"
@@ -41,8 +40,6 @@ func GenerateToken(phone string, exp int) (string, error) {
 
 // 解析token
 func ParseToken(tokenstring string) (*Claims, error) {
-
-	fmt.Println("字符串token", tokenstring)
 
 	t, err := jwt.ParseWithClaims(tokenstring, &Claims{}, func(token *jwt.Token) (interface{}, error) {
 		return []byte(jwtSecret), nil
