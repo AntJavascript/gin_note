@@ -22,14 +22,14 @@ func (c *userCtrl) Login(ctx *gin.Context) {
 	params := dto.User{}
 	ctx.BindJSON(&params)
 
-	if !verification(&params) {
+	if !verification(params.Phone) || !verification(params.Password) {
 		res = tools.JsonReturn(ctx, "", "输入不合法", 400)
 		ctx.JSON(http.StatusOK, res)
 		return
 	}
 
 	// 查询用户是否存在
-	hasUser, userInfo := service.User.QueryUser(&params)
+	hasUser, userInfo := service.User.QueryUser(params.Phone)
 
 	if !hasUser {
 		res = tools.JsonReturn(ctx, "", "用户不存在", 400)
@@ -64,7 +64,7 @@ func (c *userCtrl) Register(ctx *gin.Context) {
 	params := models.User{}
 	ctx.BindJSON(&params)
 
-	if !verification(&params) {
+	if !verification(params.Phone) || !verification(params.Password) || !verification(params.Email) {
 		res = tools.JsonReturn(ctx, "", "输入不合法", 400)
 		ctx.JSON(http.StatusOK, res)
 		return
@@ -89,9 +89,9 @@ func (c *userCtrl) Register(ctx *gin.Context) {
 }
 
 // 输入非空验证
-func verification(params *models.User) bool {
+func verification(value string) bool {
 	pass := true
-	if params.Phone == "" || params.Password == "" {
+	if value == "" {
 		pass = false
 	}
 	return pass
