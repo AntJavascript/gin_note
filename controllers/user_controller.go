@@ -6,6 +6,7 @@ import (
 	"example.com/m/v2/dto"
 	"example.com/m/v2/service"
 	"example.com/m/v2/tools"
+	"example.com/m/v2/models"
 	"github.com/gin-gonic/gin"
 )
 
@@ -60,7 +61,7 @@ func (c *userCtrl) Register(ctx *gin.Context) {
 	res := make(map[string]interface{})
 
 	// 解析前端body参数
-	params := dto.User{}
+	params := models.User{}
 	ctx.BindJSON(&params)
 
 	if !verification(&params) {
@@ -70,7 +71,7 @@ func (c *userCtrl) Register(ctx *gin.Context) {
 	}
 
 	// 查询用户是否存在
-	hasUser, _ := service.User.QueryUser(&params)
+	hasUser, _ := service.User.QueryUser(params.Phone)
 
 	if hasUser {
 		res = tools.JsonReturn(ctx, "", "手机号已注册", 400)
@@ -88,7 +89,7 @@ func (c *userCtrl) Register(ctx *gin.Context) {
 }
 
 // 输入非空验证
-func verification(params *dto.User) bool {
+func verification(params *models.User) bool {
 	pass := true
 	if params.Phone == "" || params.Password == "" {
 		pass = false
