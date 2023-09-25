@@ -17,6 +17,7 @@ func setToken(ctx *gin.Context, access_token, refresh_token string) {
 func CheckLogin() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		fmt.Println("登录验证中间件")
+		setToken(ctx, "", "")
 		// 放行设置
 		urlItem := []string{"/user/register", "/user/login", "/jwt/generateToken", "/jwt/parseToken"}
 		if !tools.InStringArray(ctx.Request.RequestURI, urlItem) {
@@ -24,7 +25,6 @@ func CheckLogin() gin.HandlerFunc {
 			access_token := ctx.GetHeader("access_token")
 			refresh_token := ctx.GetHeader("refresh_token")
 			if len(access_token) == 0 || len(refresh_token) == 0 {
-				setToken(ctx, "", "")
 				ctx.JSON(http.StatusOK, tools.JsonReturn(ctx, "", "鉴权失败", 401))
 				ctx.Abort()
 				return
@@ -40,16 +40,11 @@ func CheckLogin() gin.HandlerFunc {
 				new_access_token, new_refresh_token, _ := tools.RefreshToken(access_token, refresh_token)
 				setToken(ctx, new_access_token, new_refresh_token)
 			} else if refresh_err != nil {
-				setToken(ctx, "", "")
 				ctx.JSON(http.StatusOK, tools.JsonReturn(ctx, "", "Token已过期, 请重新登录", 401))
 				ctx.Abort()
 				return
 			}
-
-		} else {
-			setToken(ctx, "", "") // 放行设置，也需要设置token为空
 		}
-		setToken(ctx, "", "")
 		// 前置中间件
 		ctx.Next()
 	}
