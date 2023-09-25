@@ -24,7 +24,7 @@ func (c *recordService) Detail(req *dto.Record, id int) (dto.Record, error) {
 }
 
 // 添加数据
-func (c *recordService) Add(params *dto.Record) error {
+func (c *recordService) Add(params *models.Record) error {
 	err := models.DB.Create(&params).Error
 	if err != nil {
 		return err
@@ -33,7 +33,7 @@ func (c *recordService) Add(params *dto.Record) error {
 }
 
 // 更新数据
-func (c *recordService) Update(params *dto.Record) error {
+func (c *recordService) Update(params *models.Record) error {
 	err := models.DB.Save(&params).Error
 	// err := models.DB.Updates(&params).Error
 	if  err != nil {
@@ -44,10 +44,9 @@ func (c *recordService) Update(params *dto.Record) error {
 
 // 根据id删除数据
 func (c *recordService) Delete(id int) error {
-	detail := dto.Record{
-		Id: id,
-	}
-	if err := models.DB.Delete(&detail).Error; err != nil {
+	detail := models.Record{}
+	err := models.DB.Where("id = ?", id).Delete(&detail).Error;
+	if err != nil {
 		return err
 	}
 	return nil
