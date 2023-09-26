@@ -17,9 +17,9 @@ func (c *totalService) GetDayTotal(date int64) (float64, float64, error) {
 	var incomeCount float64 // 收入
 	var expendCount float64 // 支出
 
-	models.DB.Where("record_date = ?", date).Find(&result)
+	models.DB.Where("record_date_unix = ?", date).Find(&result)
 
-	for i := 0; i < len(result)-1; i++ {
+	for i := 0; i < len(result); i++ {
 		if result[i].Type == "income" {
 			incomeCount += result[i].Amount
 		} else {

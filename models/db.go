@@ -12,8 +12,9 @@ const (
 	host = "101.42.156.245"
 	// host     = "127.0.0.1"
 	port     = "3306"
-	username = "root"
-	pwd      = "kSDaWSS3GBJjyFPi"
+	username = "note_app"
+	// username = "root"
+	pwd = "kSDaWSS3GBJjyFPi"
 	// pwd      = "shi465608"
 	database = "note_app"
 )

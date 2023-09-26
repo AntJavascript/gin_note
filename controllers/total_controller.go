@@ -28,7 +28,6 @@ func (c *totalCtrl) GetDay(ctx *gin.Context) {
 		day := now.Format("02")
 		date = fmt.Sprintf("%s-%s-%s", year, month, day)
 	}
-	fmt.Println(date)
 	incomeCount, expendCount, err := service.Total.GetDayTotal(tools.StringAsTime(date).Unix())
 	if err != nil {
 		res = tools.JsonReturn(ctx, err, "失败", 400)
