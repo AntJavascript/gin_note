@@ -30,15 +30,14 @@ func (c *totalService) GetDayTotal(date int64) (float64, float64, error) {
 	return incomeCount, expendCount, nil
 }
 
-// 统计当天支出和收入
-func (c *totalService) GetMonthTotal(startDate, endDate int64) (float64, float64, error) {
-
+// 统计某月或者某年的记录
+func (c *totalService) GetMonthOrYearTotal(startDate, endDate int64) (float64, float64, error) {
 	var result []dto.Record
 
 	var incomeCount float64 // 收入
 	var expendCount float64 // 支出
 
-	models.DB.Where("record_date_unix >= ? AND record_date_unix <= ?", startDate, endDate).Find(&result)
+	models.DB.Where("record_date_unix BETWEEN ? AND ?", startDate, endDate).Find(&result)
 
 	for i := 0; i < len(result)-1; i++ {
 		if result[i].Type == "income" {
@@ -49,8 +48,4 @@ func (c *totalService) GetMonthTotal(startDate, endDate int64) (float64, float64
 	}
 
 	return incomeCount, expendCount, nil
-}
-
-func (c *totalService) GetMonthOrYearTotal(startDate, endDate int64) (float64, float64, error) {
-	return 0, 0, nil
 }
