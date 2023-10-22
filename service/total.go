@@ -1,6 +1,8 @@
 package service
 
 import (
+	"fmt"
+
 	"example.com/m/v2/dto"
 	"example.com/m/v2/models"
 )
@@ -38,6 +40,10 @@ func (c *totalService) GetMonthOrYearTotal(startDate, endDate int64) (float64, f
 	var expendCount float64 // 支出
 
 	models.DB.Where("record_date_unix BETWEEN ? AND ?", startDate, endDate).Find(&result)
+
+	fmt.Println(startDate)
+	fmt.Println(endDate)
+	fmt.Println(result)
 
 	for i := 0; i < len(result)-1; i++ {
 		if result[i].Type == "income" {

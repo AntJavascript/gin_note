@@ -59,7 +59,9 @@ func (c *totalCtrl) GetMonth(ctx *gin.Context) {
 
 	startDate = tools.StringAsTime(year + "-" + month + "-" + "01").Unix()
 	maxDay := tools.GetMonthDaxDay(year, month) // 月最后一天
-	endDate = tools.StringAsTime(year + "-" + month + "-" + tools.ToString(maxDay)).Unix()
+	endDate = tools.StringAsTime(year + "-" + month + "-" + "31").Unix()
+
+	fmt.Println(maxDay)
 
 	incomeCount, expendCount, err := service.Total.GetMonthOrYearTotal(startDate, endDate)
 	if err != nil {
