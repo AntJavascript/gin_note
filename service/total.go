@@ -5,6 +5,7 @@ import (
 
 	"example.com/m/v2/dto"
 	"example.com/m/v2/models"
+	"example.com/m/v2/tools"
 )
 
 var Total = new(totalService)
@@ -28,8 +29,7 @@ func (c *totalService) GetDayTotal(date int64) (float64, float64, error) {
 			expendCount += result[i].Amount
 		}
 	}
-
-	return incomeCount, expendCount, nil
+	return tools.Decimal(incomeCount, 2), tools.Decimal(expendCount, 2), nil
 }
 
 // 统计某月或者某年的记录
@@ -41,10 +41,6 @@ func (c *totalService) GetMonthOrYearTotal(startDate, endDate int64) (float64, f
 
 	models.DB.Where("record_date_unix BETWEEN ? AND ?", startDate, endDate).Find(&result)
 
-	fmt.Println(startDate)
-	fmt.Println(endDate)
-	fmt.Println(result)
-
 	for i := 0; i < len(result)-1; i++ {
 		if result[i].Type == "income" {
 			incomeCount += result[i].Amount
@@ -52,6 +48,5 @@ func (c *totalService) GetMonthOrYearTotal(startDate, endDate int64) (float64, f
 			expendCount += result[i].Amount
 		}
 	}
-
-	return incomeCount, expendCount, nil
+	return tools.Decimal(incomeCount, 2), tools.Decimal(expendCount, 2), nil
 }
