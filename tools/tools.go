@@ -94,11 +94,6 @@ func GetNewToken(ctx *gin.Context) (string, string) {
 	return access_token, refresh_token
 }
 
-// 数字转字符串
-func ToString(value int) string {
-	return fmt.Sprintf("%s", value)
-}
-
 // 获取请求的头部token相关信息
 func GetHearToken(ctx *gin.Context) (string, string) {
 	access_token := ctx.Request.Header.Get("access_token")
