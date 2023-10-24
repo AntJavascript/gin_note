@@ -22,14 +22,14 @@ func (c *recordCtrl) List(ctx *gin.Context) {
 	res := make(map[string]interface{})
 
 	date := ctx.Query("date") // 请求日期
-	if date == "" {
-		now := time.Now()
-		year := now.Format("2006")
-		month := now.Format("01")
-		day := now.Format("02")
-		date = fmt.Sprintf("%s-%s-%s", year, month, day)
+	now := time.Now()
+	if date != "" {
+		now = tools.StringAsTime(date)
 	}
-	fmt.Println(date)
+	year := now.Format("2006")
+	month := now.Format("01")
+	day := now.Format("02")
+	date = fmt.Sprintf("%s-%s-%s", year, month, day)
 
 	// 调用获取列表方法
 	var req *dto.Record
