@@ -19,8 +19,17 @@ func CheckLogin() gin.HandlerFunc {
 		fmt.Println("登录验证中间件")
 		setToken(ctx, "", "")
 		// 放行设置
-		urlItem := []string{"/user/register", "/user/login", "/jwt/generateToken", "/jwt/parseToken"}
-		if !tools.InStringArray(ctx.Request.RequestURI, urlItem) {
+		urlItem := []string{"/user/register", "/user/login", "/jwt/generateToken", "/jwt/parseToken", "/test"}
+		
+		var isContains = false;
+		for i := 0; i < len(urlItem); i++ {
+			isBool := tools.Contains(ctx.Request.RequestURI, urlItem[i])
+			if isBool {
+				isContains = true;
+				break
+			}
+		}
+		if !isContains {
 			// 从请求头中获取Token
 			access_token := ctx.GetHeader("access_token")
 			refresh_token := ctx.GetHeader("refresh_token")
