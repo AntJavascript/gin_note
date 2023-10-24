@@ -20,15 +20,15 @@ type totalCtrl struct {
 func (c *totalCtrl) GetDay(ctx *gin.Context) {
 	res := make(map[string]interface{})
 
-	date := ctx.Query("day") // 请求年月日
-	if date == "" {
-		// 默认获取当日数据
-		now := time.Now()
-		year := now.Format("2006")
-		month := now.Format("01")
-		day := now.Format("02")
-		date = fmt.Sprintf("%s-%s-%s", year, month, day)
+	date := ctx.Query("date") // 请求日期
+	now := time.Now()
+	if date != "" {
+		now = tools.StringAsTime(date)
 	}
+	year := now.Format("2006")
+	month := now.Format("01")
+	day := now.Format("02")
+	date = fmt.Sprintf("%s-%s-%s", year, month, day)
 	incomeCount, expendCount, err := service.Total.GetDayTotal(tools.StringAsTime(date).Unix())
 	if err != nil {
 		res = tools.JsonReturn(ctx, err, "失败", 400)
