@@ -2,7 +2,6 @@ package tools
 
 import (
 	"fmt"
-	"strconv"
 	"time"
 )
 
@@ -33,9 +32,7 @@ func TimesAsTampTime(timestamp int64) time.Time {
 // 获取月份最大天数
 func GetMonthDaxDay(year, month string) int {
 	t := StringAsTime(year + "-" + month + "-" + "01")
-	intMonth, _ := strconv.Atoi(month)
-	lastTime := t.AddDate(0, intMonth, -1)
-	fmt.Println(lastTime)
+	lastTime := t.AddDate(0, 1, -1)
 	_, _, lastDay := lastTime.Date()
 	return lastDay
 }
