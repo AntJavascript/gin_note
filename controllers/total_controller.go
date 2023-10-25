@@ -1,10 +1,10 @@
 package controllers
- 
+
 import (
 	"fmt"
 	"net/http"
-	"time"
 	"strconv"
+	"time"
 
 	"example.com/m/v2/service"
 	"example.com/m/v2/tools"
@@ -61,8 +61,6 @@ func (c *totalCtrl) GetMonth(ctx *gin.Context) {
 	startDate = tools.StringAsTime(year + "-" + month + "-" + "01").Unix()
 	maxDay := strconv.Itoa(tools.GetMonthDaxDay(year, month)) // 月最后一天
 	endDate = tools.StringAsTime(year + "-" + month + "-" + maxDay).Unix()
-
-	fmt.Println(maxDay)
 
 	incomeCount, expendCount, err := service.Total.GetMonthOrYearTotal(startDate, endDate)
 	if err != nil {
