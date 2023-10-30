@@ -93,6 +93,7 @@ func (c *recordCtrl) Update(ctx *gin.Context) {
 	if ctx.BindJSON(&params) != nil {
 		res = tools.JsonReturn(ctx, "", "参数错误", 400)
 	} else {
+		params.RecordDateUnix = tools.StringAsTampTime(params.RecordDate) // 生成时间戳
 		err := service.Record.Update(&params)
 		if err != nil {
 			res = tools.JsonReturn(ctx, err, "失败", 400)
