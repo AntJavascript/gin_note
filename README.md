@@ -26,3 +26,5 @@ intStr, err := strconv.Atoi(string)
 
 // string到int64  
 int64Str, err := strconv.ParseInt(string, 10, 64)//10为进制，64为bit位
+
+https://blog.csdn.net/weixin_55747284/article/details/131230177
