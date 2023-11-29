@@ -11,8 +11,13 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+var TotalDetailStruct = new(totalDetailCtrl)
+
+type totalDetailCtrl struct {
+}
+
 // 获取某月数据统计详情
-func (c *totalCtrl) GeTotalMonthDetail(ctx *gin.Context) {
+func (c *totalDetailCtrl) GeTotalMonthDetail(ctx *gin.Context) {
   	res := make(map[string]interface{})
 
 	year := ctx.Query("year")   // 年
