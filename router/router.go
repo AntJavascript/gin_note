@@ -30,6 +30,7 @@ func init() {
 		total.GET("/day", controllers.TotalStruct.GetDay)
 		total.GET("/month", controllers.TotalStruct.GetMonth)
 		total.GET("/year/:year", controllers.TotalStruct.GetYear)
+		total.GET("/totalMonthDetail", controllers.TotalDetailStruct.GeTotalMonthDetail)
 	}
 
 	// 预算相关
