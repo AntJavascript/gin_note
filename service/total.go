@@ -50,21 +50,9 @@ func (c *totalService) GetMonthOrYearTotal(startDate, endDate int64) (float64, f
 }
 
 // 统计某月数据明细
-func (c *totalService) GetMonthDetail(startDate, endDate int64) (float64, float64, error) {
-	var result []dto.Record
-
-	var incomeCount float64 // 收入
-	var expendCount float64 // 支出
-
-	models.DB.Where("record_date_unix BETWEEN ? AND ?", startDate, endDate).Find(&result)
-
-	for i := 0; i < len(result); i++ {
-		if result[i].Type == "income" {
-			incomeCount += result[i].Amount
-		} else {
-			expendCount += result[i].Amount
-		}
-	}
-	return tools.Decimal(incomeCount, 2), tools.Decimal(expendCount, 2), nil
+func (c *totalService) GetMonthDetail() ([]dto.Total, error) {
+	var result []dto.Total
+	models.DB.Row("select day(FROM_UNIXTIME(record_date_unix)) as day,sum(amount)as amount from record group by day").Scan(&result)
+	return result, nil
 }
 
