@@ -18,7 +18,21 @@ func (c *totalCtrl) GeTotalMonthDetail(ctx *gin.Context) {
 	year := ctx.Query("year")   // 年
 	month := ctx.Query("month") // 月
 
-	list, err := service.Total.GetMonthDetail()
+	var startDate int64 // 月初第一天
+	var endDate int64   // 月底最后一天
+
+	if year == "" || month == "" {
+		// 默认本年、本月
+		now := time.Now()
+		year = now.Format("2006")
+		month = now.Format("01")
+	}
+
+	startDate = tools.StringAsTime(year + "-" + month + "-" + "01").Unix()
+	maxDay := strconv.Itoa(tools.GetMonthDaxDay(year, month)) // 月最后一天
+	endDate = tools.StringAsTime(year + "-" + month + "-" + maxDay).Unix()
+
+	list, err := service.Total.GetMonthDetail(startDate, endDate)
 	if err != nil {
 		res = tools.JsonReturn(ctx, err, "失败", 400)
 	} else {
