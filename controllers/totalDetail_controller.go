@@ -13,8 +13,18 @@ import (
 
 // 获取某月数据统计详情
 func (c *totalCtrl) GeTotalMonthDetail(ctx *gin.Context) {
-  res := make(map[string]interface{})
+  	res := make(map[string]interface{})
 
 	year := ctx.Query("year")   // 年
 	month := ctx.Query("month") // 月
+
+	list, err := service.Total.GetMonthDetail()
+	if err != nil {
+		res = tools.JsonReturn(ctx, err, "失败", 400)
+	} else {
+		res = tools.JsonReturn(ctx, "", "成功", 200)
+		res["list"] = list
+	}
+	ctx.JSON(http.StatusOK, res)
+	return
 }
