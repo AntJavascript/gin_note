@@ -52,7 +52,6 @@ func (c *totalService) GetMonthOrYearTotal(startDate, endDate int64) (float64, f
 // 统计某月数据明细
 func (c *totalService) GetMonthDetail(startDate, endDate int64) ([]dto.Total, error) {
 	var result []dto.Total
-	models.DB.Row("select day(FROM_UNIXTIME(record_date_unix)) as day,sum(amount)as amount from record where record_date_unix >= ? and record_date_unix <= ? group by day", startDate, endDate).Scan(&result)
+	models.DB.Raw("select day(FROM_UNIXTIME(record_date_unix)) as day,sum(amount) as amount, type from records where record_date_unix >= ? and record_date_unix <= ? group by day", startDate, endDate).Scan(&result)
 	return result, nil
 }
-

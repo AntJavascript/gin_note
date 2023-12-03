@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	"fmt"
 	"net/http"
 	"strconv"
 	"time"
@@ -18,7 +17,7 @@ type totalDetailCtrl struct {
 
 // 获取某月数据统计详情
 func (c *totalDetailCtrl) GeTotalMonthDetail(ctx *gin.Context) {
-  	res := make(map[string]interface{})
+	res := make(map[string]interface{})
 
 	year := ctx.Query("year")   // 年
 	month := ctx.Query("month") // 月
