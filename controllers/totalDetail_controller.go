@@ -41,7 +41,7 @@ func (c *totalDetailCtrl) GeTotalMonthDetail(ctx *gin.Context) {
 		res = tools.JsonReturn(ctx, err, "失败", 400)
 	} else {
 		res = tools.JsonReturn(ctx, "", "成功", 200)
-		res["list"] = list
+		res["data"] = list
 	}
 	ctx.JSON(http.StatusOK, res)
 	return
