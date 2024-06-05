@@ -104,3 +104,8 @@ func (c *totalCtrl) GetYear(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, res)
 	return
 }
+
+// 获取分类收支统计
+func (c *totalCtrl) GetTotalRecordType(ctx *gin.Context) {
+	
+}
