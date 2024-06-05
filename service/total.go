@@ -55,3 +55,9 @@ func (c *totalService) GetMonthDetail(startDate, endDate int64) ([]dto.Total, er
 	models.DB.Raw("select day(FROM_UNIXTIME(record_date_unix)) as day,sum(amount) as amount, type from records where record_date_unix >= ? and record_date_unix <= ? group by day", startDate, endDate).Scan(&result)
 	return result, nil
 }
+// 查询支出统计（分类）
+func (c *totalService) GetRecordTypeTotal(startDate, endDate int64) ([]dto.Total, error) {
+	var result []dto.Total
+	models.DB.Select('count('reocrd_type')').Where("record_date_unix BETWEEN ? AND ?", startDate, endDate).Find(&result)
+	return result, nil
+}
